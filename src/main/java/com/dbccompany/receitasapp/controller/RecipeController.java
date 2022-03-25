@@ -39,15 +39,6 @@ public class RecipeController {
         return recipeService.findRecipeById(idRecipe);
     }
 
-//    @ApiOperation(value = "Encontra receitas a partir de um id de usuário informado.")
-//    @ApiResponses(value = {@ApiResponse(code = 200, message = "As receitas foram informadas com sucesso."),
-//            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-//            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
-//    @GetMapping("/findRecipesByUser/{idUser}")
-//    public List<RecipeFormed> findRecipesByUser(@PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
-//        return recipeService.findRecipesByUser(idUser);
-//    }
-
     @ApiOperation(value = "Cadastra uma receita no banco de dados.")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Cadastrou a receita com sucesso no banco."),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),

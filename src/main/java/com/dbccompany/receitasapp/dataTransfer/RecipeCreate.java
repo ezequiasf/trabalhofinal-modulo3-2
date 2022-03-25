@@ -1,7 +1,5 @@
 package com.dbccompany.receitasapp.dataTransfer;
 
-import com.dbccompany.receitasapp.entity.MealType;
-import com.dbccompany.receitasapp.entity.RecipeType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,7 @@ public class RecipeCreate {
 
     @NotBlank(message = "O modo de preparo deve ser informado.")
     @Size(min = 1, max = 2500, message = "O modo de preparo deve ter no máximo 2500 caracteres.")
-    private String prepare;
+    private String prepareRecipe;
 
     @NotNull(message = "O tempo de preparo deve ser informado.")
     private Integer prepareTime;
@@ -34,10 +32,4 @@ public class RecipeCreate {
     @Digits(integer = 6, fraction = 2)
     @DecimalMin(value = "0.0", message = "Não é permitido números negativos.")
     private BigDecimal calories;
-
-    @NotNull
-    private RecipeType recipeType;
-
-    @NotNull
-    private MealType mealType;
 }

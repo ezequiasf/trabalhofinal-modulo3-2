@@ -39,16 +39,8 @@ public class RecipeEntity {
     @Column(name = "calories")
     private BigDecimal calories;
 
-    @Column(name = "recipe_type")
-    @Enumerated(EnumType.ORDINAL)
-    private RecipeType recipeType;
-
-    @Column(name = "meal_type")
-    @Enumerated(EnumType.ORDINAL)
-    private MealType mealType;
-
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity userEntity;
 

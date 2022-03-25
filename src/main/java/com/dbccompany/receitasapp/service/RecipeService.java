@@ -59,11 +59,9 @@ public class RecipeService {
         RecipeEntity newRecipe = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
         log.info("Objeto DTO convertido para tipo Receita.");
         oldRecipe.setRecipeName(newRecipe.getRecipeName());
-        oldRecipe.setRecipeType(newRecipe.getRecipeType());
         oldRecipe.setPrepareRecipe(newRecipe.getPrepareRecipe());
         oldRecipe.setCalories(newRecipe.getCalories());
         oldRecipe.setImageUrl(newRecipe.getImageUrl());
-        oldRecipe.setMealType(newRecipe.getMealType());
         oldRecipe.setPrice(newRecipe.getPrice());
         oldRecipe.setPrepareTime(newRecipe.getPrepareTime());
         log.info("Receita atualizada no repositório.");

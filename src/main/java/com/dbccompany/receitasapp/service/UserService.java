@@ -60,6 +60,7 @@ public class UserService {
         UserEntity userEntity = userRepository.findById(idUser)
                 .orElseThrow(()-> new ObjectNotFoundException("User not found!"));
         userEntity.setIsActive(false);
+        userRepository.save(userEntity);
         log.info("Usúario desativado.");
     }
 
