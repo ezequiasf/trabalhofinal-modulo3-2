@@ -51,6 +51,7 @@ public class UserService {
         oldUser.setPassword(newUser.getPassword());
         oldUser.setEmail(newUser.getEmail());
         oldUser.setIsActive(newUser.getIsActive());
+        userRepository.save(oldUser);
         return objectMapper.convertValue(oldUser, UserFormed.class);
     }
 
