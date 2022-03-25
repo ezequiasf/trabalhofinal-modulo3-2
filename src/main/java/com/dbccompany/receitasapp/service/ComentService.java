@@ -1,12 +1,11 @@
 package com.dbccompany.receitasapp.service;
 
-import com.dbccompany.receitasapp.dataTransfer.ComentCreate;
-import com.dbccompany.receitasapp.dataTransfer.ComentFormed;
+import com.dbccompany.receitasapp.dataTransfer.*;
 import com.dbccompany.receitasapp.entity.ComentEntity;
+import com.dbccompany.receitasapp.entity.RecipeEntity;
 import com.dbccompany.receitasapp.entity.UserEntity;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.repository.ComentRepository;
-import com.dbccompany.receitasapp.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,8 @@ import java.util.stream.Collectors;
 public class ComentService {
     private final ComentRepository comentRepository;
     private final ObjectMapper objectMapper;
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final RecipeService recipeService;
 
     public List<ComentFormed> readAllComents() {
         log.info("Chamada de método service:: Ler todas as notas.");
@@ -38,23 +38,26 @@ public class ComentService {
 
     public ComentFormed saveComent(ComentCreate comentCreate, Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Salvar comentarios.");
+        UserFormed user = userService.findUserById(idUser);
+        RecipeFormed recipe = recipeService.findRecipeById(comentCreate.getIdRecipe());
         ComentEntity c = objectMapper.convertValue(comentCreate, ComentEntity.class);
         log.info("Objeto DTO convertido para tipo Comentario.");
-        //TODO: Setar o usuário dentro de comentário
-        UserEntity user = userRepository.findById(idUser).orElseThrow(()-> new ObjectNotFoundException("User not found!"));
+        c.setUserEntity(objectMapper.convertValue(user, UserEntity.class));
+        c.setRecipe(objectMapper.convertValue(recipe, RecipeEntity.class));
         ComentEntity c2 = comentRepository.save(c);
         log.info("Comentario salvo no repositório.");
         return objectMapper.convertValue(c2, ComentFormed.class);
     }
 
-    public ComentFormed updateComent(ComentCreate comentCreate, Long idComent) throws ObjectNotFoundException {
+    public ComentFormed updateComent(ComentUpdate comentUpdate, Long idComent) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar comentários.");
-        ComentEntity comentReceived = objectMapper.convertValue(comentCreate, ComentEntity.class);
-        log.info("Objeto DTO convertido para tipo Comentario.");
         ComentEntity oldComent = comentRepository.findById(idComent)
                 .orElseThrow(() -> new ObjectNotFoundException("Coment not found!"));
-        //TODO: fazer os sets de todas as propriedades no oldComent ex:: oldComent.setComent(comentReceived.get())
+        ComentEntity comentReceived = objectMapper.convertValue(comentUpdate, ComentEntity.class);
+        log.info("Objeto DTO convertido para tipo Comentario.");
+        oldComent.setComent(comentReceived.getComent());
         ComentEntity newComent = comentRepository.save(oldComent);
+
         log.info("Comentário atualizado no repositório.");
         return objectMapper.convertValue(newComent, ComentFormed.class);
     }

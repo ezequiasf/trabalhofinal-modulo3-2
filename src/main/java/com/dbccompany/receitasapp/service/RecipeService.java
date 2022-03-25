@@ -2,7 +2,9 @@ package com.dbccompany.receitasapp.service;
 
 import com.dbccompany.receitasapp.dataTransfer.RecipeCreate;
 import com.dbccompany.receitasapp.dataTransfer.RecipeFormed;
+import com.dbccompany.receitasapp.dataTransfer.UserFormed;
 import com.dbccompany.receitasapp.entity.RecipeEntity;
+import com.dbccompany.receitasapp.entity.UserEntity;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.repository.RecipeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final ObjectMapper objectMapper;
+    private final UserService userService;
 
     public List<RecipeFormed> readAllRecipes() {
         return convertList(recipeRepository.findAll());
@@ -30,17 +33,12 @@ public class RecipeService {
         return objectMapper.convertValue(r, RecipeFormed.class);
     }
 
-    //TODO: Implementar lógica de consulta depois
-//    public List<RecipeFormed> findRecipesByUser(Long idUsuario)  {
-//
-//        return convertList(recipeRepository.findAll());
-//    }
-
-    public RecipeFormed saveRecipe(RecipeCreate recipeCreate, Long idUser) {
+    public RecipeFormed saveRecipe(RecipeCreate recipeCreate, Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Salvar receitas.");
+        UserFormed userFormed = userService.findUserById(idUser);
         RecipeEntity r = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
         log.info("Objeto DTO convertido para tipo Receita.");
-        //TODO: setar o usuário na receita
+        r.setUserEntity(objectMapper.convertValue(userFormed, UserEntity.class));
         RecipeEntity r2 = recipeRepository.save(r);
         log.info("Receita salva no repositório.");
         return objectMapper.convertValue(r2, RecipeFormed.class);
@@ -48,11 +46,18 @@ public class RecipeService {
 
     public RecipeFormed updateRecipe(RecipeCreate recipeCreate, Long idRecipe) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar receitas.");
-        RecipeEntity newRecipe = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
-        log.info("Objeto DTO convertido para tipo Receita.");
-        //TODO: Setar os atributos da nova receita na antiga
         RecipeEntity oldRecipe = recipeRepository.findById(idRecipe)
                 .orElseThrow(() -> new ObjectNotFoundException("Recipe not found!"));
+        RecipeEntity newRecipe = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
+        log.info("Objeto DTO convertido para tipo Receita.");
+        oldRecipe.setRecipeName(newRecipe.getRecipeName());
+        oldRecipe.setRecipeType(newRecipe.getRecipeType());
+        oldRecipe.setPrepareRecipe(newRecipe.getPrepareRecipe());
+        oldRecipe.setCalories(newRecipe.getCalories());
+        oldRecipe.setImageUrl(newRecipe.getImageUrl());
+        oldRecipe.setMealType(newRecipe.getMealType());
+        oldRecipe.setPrice(newRecipe.getPrice());
+        oldRecipe.setPrepareTime(newRecipe.getPrepareTime());
         log.info("Receita atualizada no repositório.");
         RecipeEntity recipeReturn = recipeRepository.save(oldRecipe);
         return objectMapper.convertValue(recipeReturn, RecipeFormed.class);

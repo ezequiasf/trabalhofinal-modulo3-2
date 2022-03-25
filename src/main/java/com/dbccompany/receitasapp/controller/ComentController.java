@@ -2,6 +2,7 @@ package com.dbccompany.receitasapp.controller;
 
 import com.dbccompany.receitasapp.dataTransfer.ComentCreate;
 import com.dbccompany.receitasapp.dataTransfer.ComentFormed;
+import com.dbccompany.receitasapp.dataTransfer.ComentUpdate;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.service.ComentService;
 import io.swagger.annotations.ApiOperation;
@@ -54,8 +55,8 @@ public class ComentController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PutMapping("/updateComent/{idComent}")
     @Validated
-    public ComentFormed updateComent(@Valid @RequestBody ComentCreate comentCreate, @PathVariable("idComent") Long idComent) throws ObjectNotFoundException {
-        return comentService.updateComent(comentCreate, idComent);
+    public ComentFormed updateComent(@Valid @RequestBody ComentUpdate comentUpdate, @PathVariable("idComent") Long idComent) throws ObjectNotFoundException {
+        return comentService.updateComent(comentUpdate, idComent);
     }
 
     @ApiOperation(value = "Deleta um comentário do banco de dados.")

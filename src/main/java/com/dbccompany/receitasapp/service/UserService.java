@@ -43,11 +43,13 @@ public class UserService {
 
     public UserFormed updateUser(UserCreate userCreate, Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar usuários.");
+        UserEntity oldUser = userRepository.findById(idUser)
+                .orElseThrow(()-> new ObjectNotFoundException("User not found!"));
         UserEntity newUser = objectMapper.convertValue(userCreate, UserEntity.class);
         log.info("Objeto DTO convertido para tipo Usuario.");
-        //TODO: Setar as caracteristicas do novo usuário no velho
-        UserEntity oldUser = userRepository.findById(idUser)
-                .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
+        oldUser.setUserName(newUser.getUserName());
+        oldUser.setPassword(newUser.getPassword());
+        oldUser.setEmail(newUser.getEmail());
         return objectMapper.convertValue(oldUser, UserFormed.class);
     }
 

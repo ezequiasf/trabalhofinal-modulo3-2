@@ -13,10 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RatingCreate {
-    @NotNull(message = "O id da receita deve ser informada.")
-    private Long idRecipe;
-
+public class RatingUpdate {
     @NotNull(message = "A classificação deve ser informada.")
     @DecimalMax(value = "5.0", message = "O máximo da nota deve ser (5.0).")
     @DecimalMin(value = "0.0", message = "O mínimo da nota deve ser (0.0).")

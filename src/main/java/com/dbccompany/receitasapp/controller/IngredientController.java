@@ -44,7 +44,7 @@ public class IngredientController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PostMapping("/saveIngredient/{idRecipe}")
     public IngredientFormed saveIngredient(@Valid @RequestBody IngredientCreate ingDto
-            , @PathVariable("idRecipe") Long idRecipe) {
+            , @PathVariable("idRecipe") Long idRecipe) throws ObjectNotFoundException {
         return ingredientService.saveIngredient(ingDto, idRecipe);
     }
 

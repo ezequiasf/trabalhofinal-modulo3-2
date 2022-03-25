@@ -2,6 +2,7 @@ package com.dbccompany.receitasapp.controller;
 
 import com.dbccompany.receitasapp.dataTransfer.RatingCreate;
 import com.dbccompany.receitasapp.dataTransfer.RatingFormed;
+import com.dbccompany.receitasapp.dataTransfer.RatingUpdate;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.service.RatingService;
 import io.swagger.annotations.ApiOperation;
@@ -44,7 +45,7 @@ public class RatingController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PostMapping("/saveRating/{idUser}")
     @Validated
-    public RatingFormed saveRating(@Valid @RequestBody RatingCreate ratingCreate, @PathVariable("idUser") Long idUser) {
+    public RatingFormed saveRating(@Valid @RequestBody RatingCreate ratingCreate, @PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
         return ratingService.saveRating(ratingCreate, idUser);
     }
 
@@ -54,8 +55,8 @@ public class RatingController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PutMapping("/updateRating/{idRating}")
     @Validated
-    public RatingFormed atualizarNota(@Valid @RequestBody RatingCreate ratingCreate, @PathVariable("idRating") Long idRating) throws ObjectNotFoundException {
-        return ratingService.updateRating(ratingCreate, idRating);
+    public RatingFormed updateRating(@Valid @RequestBody RatingUpdate ratingUpdate, @PathVariable("idRating") Long idRating) throws ObjectNotFoundException {
+        return ratingService.updateRating(ratingUpdate, idRating);
     }
 
     @ApiOperation(value = "Deleta uma nota do banco de dados.")
@@ -63,7 +64,7 @@ public class RatingController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @DeleteMapping("/deleteRating/{idRating}")
-    public void deletarNota(@PathVariable("idRating") Long idRating) {
+    public void deleteRating(@PathVariable("idRating") Long idRating) {
         ratingService.deleteRating(idRating);
     }
 

@@ -18,7 +18,7 @@ public class RecipeCreate {
     @Size(min = 2, max = 40, message = "O nome da receita deve estar entre 2 e 15 caracteres.")
     private String recipeName;
 
-    private String image;
+    private String imageUrl;
 
     @NotBlank(message = "O modo de preparo deve ser informado.")
     @Size(min = 1, max = 2500, message = "O modo de preparo deve ter no máximo 2500 caracteres.")

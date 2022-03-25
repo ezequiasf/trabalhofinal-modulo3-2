@@ -1,8 +1,9 @@
 package com.dbccompany.receitasapp.service;
 
-import com.dbccompany.receitasapp.dataTransfer.RatingCreate;
-import com.dbccompany.receitasapp.dataTransfer.RatingFormed;
+import com.dbccompany.receitasapp.dataTransfer.*;
 import com.dbccompany.receitasapp.entity.RatingEntity;
+import com.dbccompany.receitasapp.entity.RecipeEntity;
+import com.dbccompany.receitasapp.entity.UserEntity;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.repository.RatingRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 public class RatingService {
     private final RatingRepository ratingRepository;
     private final ObjectMapper objectMapper;
+    private final UserService userService;
+    private final RecipeService recipeService;
 
     public List<RatingFormed> readAllRatings() {
         log.info("Chamada de método service:: Ler todas as notas.");
@@ -31,23 +34,26 @@ public class RatingService {
         return objectMapper.convertValue(r, RatingFormed.class);
     }
 
-    public RatingFormed saveRating(RatingCreate ratingCreate, Long idUser) {
+    public RatingFormed saveRating(RatingCreate ratingCreate, Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Salvar notas.");
+        UserFormed userFormed = userService.findUserById(idUser);
+        RecipeFormed recipeFormed = recipeService.findRecipeById(ratingCreate.getIdRecipe());
         RatingEntity r = objectMapper.convertValue(ratingCreate, RatingEntity.class);
         log.info("Objeto DTO convertido para tipo Nota.");
-        //TODO: Setar o usuário dentro da RatingEntity
+        r.setUserEntity(objectMapper.convertValue(userFormed, UserEntity.class));
+        r.setRecipeEntity(objectMapper.convertValue(recipeFormed, RecipeEntity.class));
         RatingEntity r2 = ratingRepository.save(r);
         log.info("Nota salva no repositório.");
         return objectMapper.convertValue(r2, RatingFormed.class);
     }
 
-    public RatingFormed updateRating(RatingCreate ratingCreate, Long idRating) throws ObjectNotFoundException {
+    public RatingFormed updateRating(RatingUpdate ratingUpdate, Long idRating) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar notas.");
-        RatingEntity newRating = objectMapper.convertValue(ratingCreate, RatingEntity.class);
-        log.info("Objeto DTO convertido para tipo Nota.");
-        //TODO: Setar os atributos da nova na velha
         RatingEntity oldRating = ratingRepository.findById(idRating)
                 .orElseThrow(() -> new ObjectNotFoundException("Rating not found"));
+        RatingEntity newRating = objectMapper.convertValue(ratingUpdate, RatingEntity.class);
+        log.info("Objeto DTO convertido para tipo Nota.");
+        oldRating.setRating(newRating.getRating());
         log.info("Nota atualizada no repositório.");
         RatingEntity ratingReturn = ratingRepository.save(oldRating);
         return objectMapper.convertValue(ratingReturn, RatingFormed.class);

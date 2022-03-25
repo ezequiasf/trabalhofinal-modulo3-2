@@ -53,7 +53,7 @@ public class RecipeController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PostMapping("/saveRecipe/{idUser}")
     @Validated
-    public RecipeFormed saveRecipe(@Valid @RequestBody RecipeCreate recipeCreate, @PathVariable("idUser") Long idUser) {
+    public RecipeFormed saveRecipe(@Valid @RequestBody RecipeCreate recipeCreate, @PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
         return recipeService.saveRecipe(recipeCreate, idUser);
     }
 
