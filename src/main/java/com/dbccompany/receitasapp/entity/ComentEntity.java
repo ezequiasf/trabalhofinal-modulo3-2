@@ -9,12 +9,11 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity(name = "coment")
 public class ComentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMENT_GEN")
-    @SequenceGenerator(name = "COMENT_GEN", sequenceName = "seq_coment")
+    @SequenceGenerator(name = "COMENT_GEN", sequenceName = "seq_coment", allocationSize = 1)
     @Column(name = "coment_id")
     private Long idComent;
 

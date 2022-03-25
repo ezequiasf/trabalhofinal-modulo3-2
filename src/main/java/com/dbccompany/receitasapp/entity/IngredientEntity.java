@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity(name = "ingredient")
 public class IngredientEntity {
     @Id

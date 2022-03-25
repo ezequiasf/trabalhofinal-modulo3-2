@@ -11,7 +11,6 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity(name = "recipe")
 public class RecipeEntity {
     //TODO: Implementar atributos da Api externa
