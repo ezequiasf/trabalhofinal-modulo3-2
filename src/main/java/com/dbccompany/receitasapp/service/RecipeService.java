@@ -53,7 +53,7 @@ public class RecipeService {
         log.info("Chamada de método service:: Atualizar receitas.");
         RecipeEntity oldRecipe = recipeRepository.findById(idRecipe)
                 .orElseThrow(() -> new ObjectNotFoundException("Recipe not found!"));
-        if (oldRecipe.getUserEntity().getIsActive()){
+        if (!oldRecipe.getUserEntity().getIsActive()){
             throw new UserNotActiveException("User inactive!");
         }
         RecipeEntity newRecipe = objectMapper.convertValue(recipeCreate, RecipeEntity.class);

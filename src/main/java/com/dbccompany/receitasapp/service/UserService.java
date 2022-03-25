@@ -2,6 +2,7 @@ package com.dbccompany.receitasapp.service;
 
 import com.dbccompany.receitasapp.dataTransfer.UserCreate;
 import com.dbccompany.receitasapp.dataTransfer.UserFormed;
+import com.dbccompany.receitasapp.dataTransfer.UserUpdate;
 import com.dbccompany.receitasapp.entity.UserEntity;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.repository.UserRepository;
@@ -36,16 +37,17 @@ public class UserService {
         log.info("Chamada de método service:: Salvar usuários.");
         UserEntity u = objectMapper.convertValue(userCreate, UserEntity.class);
         log.info("Objeto DTO convertido para tipo Usuario.");
+        u.setIsActive(true);
         UserEntity u2 = userRepository.save(u);
         log.info("Usuário salvo no repositório.");
         return objectMapper.convertValue(u2, UserFormed.class);
     }
 
-    public UserFormed updateUser(UserCreate userCreate, Long idUser) throws ObjectNotFoundException {
+    public UserFormed updateUser(UserUpdate userUpdate, Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar usuários.");
         UserEntity oldUser = userRepository.findById(idUser)
                 .orElseThrow(()-> new ObjectNotFoundException("User not found!"));
-        UserEntity newUser = objectMapper.convertValue(userCreate, UserEntity.class);
+        UserEntity newUser = objectMapper.convertValue(userUpdate, UserEntity.class);
         log.info("Objeto DTO convertido para tipo Usuario.");
         oldUser.setUserName(newUser.getUserName());
         oldUser.setPassword(newUser.getPassword());

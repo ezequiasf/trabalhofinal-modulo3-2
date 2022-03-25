@@ -4,13 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
-import java.time.LocalDate;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserCreate {
+public class UserUpdate {
     @NotBlank(message = "O usuário deve ser informado.")
     @Size(min = 1, max = 10, message = "O nome de usuário deve ter entre 1 e 10 caracteres.")
     private String userName;
@@ -22,4 +24,7 @@ public class UserCreate {
     @Email
     @NotBlank(message = "O email deve ser informado.")
     private String email;
+
+    @NotNull
+    private Boolean isActive;
 }

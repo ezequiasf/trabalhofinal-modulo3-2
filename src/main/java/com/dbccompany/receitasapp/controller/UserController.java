@@ -3,6 +3,7 @@ package com.dbccompany.receitasapp.controller;
 
 import com.dbccompany.receitasapp.dataTransfer.UserCreate;
 import com.dbccompany.receitasapp.dataTransfer.UserFormed;
+import com.dbccompany.receitasapp.dataTransfer.UserUpdate;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
 import com.dbccompany.receitasapp.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -56,7 +57,7 @@ public class UserController {
     @PutMapping("/updateUser/{idUser}")
     @Validated
     public UserFormed updateUser(@PathVariable("idUser") Long idUser,
-                                       @Valid @RequestBody UserCreate userUpdate) throws ObjectNotFoundException {
+                                       @Valid @RequestBody UserUpdate userUpdate) throws ObjectNotFoundException {
         return serviceUsuario.updateUser(userUpdate, idUser);
     }
 

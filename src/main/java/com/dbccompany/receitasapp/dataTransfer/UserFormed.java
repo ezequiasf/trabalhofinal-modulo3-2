@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UserFormed extends UserCreate {
+public class UserFormed extends UserUpdate {
     private Integer idUser;
 }

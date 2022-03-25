@@ -54,6 +54,7 @@ public class ComentService {
         ComentEntity oldComent = comentRepository.findById(idComent)
                 .orElseThrow(() -> new ObjectNotFoundException("Coment not found!"));
         ComentEntity comentReceived = objectMapper.convertValue(comentUpdate, ComentEntity.class);
+
         log.info("Objeto DTO convertido para tipo Comentario.");
         oldComent.setComent(comentReceived.getComent());
         ComentEntity newComent = comentRepository.save(oldComent);
