@@ -59,9 +59,11 @@ public class IngredientService {
         return objectMapper.convertValue(ingredientReturn, IngredientFormed.class);
     }
 
-    public void deleteIngredient(Long idIngredient) {
+    public void deleteIngredient(Long idIngredient) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar ingredientes.");
-        ingredientRepository.deleteById(idIngredient);
+        IngredientEntity ingredient = ingredientRepository.findById(idIngredient)
+                .orElseThrow(()-> new ObjectNotFoundException("Ingredient not found!"));
+        ingredientRepository.delete(ingredient);
         log.info("Ingrediente deletado do repositório.");
     }
 

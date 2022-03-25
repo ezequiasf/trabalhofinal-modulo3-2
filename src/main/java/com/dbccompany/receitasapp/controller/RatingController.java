@@ -64,7 +64,7 @@ public class RatingController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @DeleteMapping("/deleteRating/{idRating}")
-    public void deleteRating(@PathVariable("idRating") Long idRating) {
+    public void deleteRating(@PathVariable("idRating") Long idRating) throws ObjectNotFoundException {
         ratingService.deleteRating(idRating);
     }
 

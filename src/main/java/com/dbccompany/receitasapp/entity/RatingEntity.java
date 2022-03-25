@@ -19,6 +19,9 @@ public class RatingEntity {
     @Column(name = "rating_id")
     private Long idRating;
 
+    @Column(name = "recipe_id", updatable = false, insertable = false)
+    private Long idRecipe;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

@@ -54,6 +54,7 @@ public class ComentService {
         ComentEntity oldComent = comentRepository.findById(idComent)
                 .orElseThrow(() -> new ObjectNotFoundException("Coment not found!"));
         ComentEntity comentReceived = objectMapper.convertValue(comentUpdate, ComentEntity.class);
+
         log.info("Objeto DTO convertido para tipo Comentario.");
         oldComent.setComent(comentReceived.getComent());
         ComentEntity newComent = comentRepository.save(oldComent);
@@ -62,9 +63,11 @@ public class ComentService {
         return objectMapper.convertValue(newComent, ComentFormed.class);
     }
 
-    public void deleteComent(Long idComent) {
+    public void deleteComent(Long idComent) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar comentários.");
-        comentRepository.deleteById(idComent);
+        ComentEntity coment = comentRepository.findById(idComent)
+                .orElseThrow(()-> new ObjectNotFoundException("Coment not registered!"));
+        comentRepository.delete(coment);
     }
 
     private List<ComentFormed> convertList(List<ComentEntity> coments) {

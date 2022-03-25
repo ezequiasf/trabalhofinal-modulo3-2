@@ -56,7 +56,7 @@ public class RecipeService {
         log.info("Chamada de método service:: Atualizar receitas.");
         RecipeEntity oldRecipe = recipeRepository.findById(idRecipe)
                 .orElseThrow(() -> new ObjectNotFoundException("Recipe not found!"));
-        if (oldRecipe.getUserEntity().getIsActive()){
+        if (!oldRecipe.getUserEntity().getIsActive()){
             throw new UserNotActiveException("User inactive!");
         }
         RecipeEntity newRecipe = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
@@ -72,9 +72,11 @@ public class RecipeService {
         return objectMapper.convertValue(recipeReturn, RecipeFormed.class);
     }
 
-    public void deleteRecipe(Long idRecipe) {
+    public void deleteRecipe(Long idRecipe) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar receitas.");
-        recipeRepository.deleteById(idRecipe);
+        RecipeEntity recipeEntity = recipeRepository.findById(idRecipe).orElseThrow(()->
+                new ObjectNotFoundException("Recipe not found!"));
+        recipeRepository.delete(recipeEntity);
     }
 
     private List<RecipeFormed> convertList(List<RecipeEntity> recipes) {
