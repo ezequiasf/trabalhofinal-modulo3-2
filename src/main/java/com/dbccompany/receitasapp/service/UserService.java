@@ -50,13 +50,16 @@ public class UserService {
         oldUser.setUserName(newUser.getUserName());
         oldUser.setPassword(newUser.getPassword());
         oldUser.setEmail(newUser.getEmail());
+        oldUser.setIsActive(newUser.getIsActive());
         return objectMapper.convertValue(oldUser, UserFormed.class);
     }
 
-    public void deleteUser(Long idUser) {
+    public void deleteUser(Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar usuários.");
-        userRepository.deleteById(idUser);
-        log.info("Nota deletada no repositório.");
+        UserEntity userEntity = userRepository.findById(idUser)
+                .orElseThrow(()-> new ObjectNotFoundException("User not found!"));
+        userEntity.setIsActive(false);
+        log.info("Usúario desativado.");
     }
 
     private List<UserFormed> convertList(List<UserEntity> users) {

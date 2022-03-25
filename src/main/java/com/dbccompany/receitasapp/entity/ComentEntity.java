@@ -19,11 +19,13 @@ public class ComentEntity {
     private Long idComent;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity userEntity;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
     private RecipeEntity recipe;
 
     @Column(name = "coment_text")

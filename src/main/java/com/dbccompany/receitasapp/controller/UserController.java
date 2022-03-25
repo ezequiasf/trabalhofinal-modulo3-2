@@ -65,7 +65,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @DeleteMapping("/deleteUser/{idUser}")
-    public void deleteUser(@PathVariable("idUser") Long idUser)  {
+    public void deleteUser(@PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
         serviceUsuario.deleteUser(idUser);
     }
 

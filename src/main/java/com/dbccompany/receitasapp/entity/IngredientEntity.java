@@ -19,7 +19,8 @@ public class IngredientEntity {
     private Long idIngredient;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
     private RecipeEntity recipeEntity;
 
     @Column(name = "ingredient_text")

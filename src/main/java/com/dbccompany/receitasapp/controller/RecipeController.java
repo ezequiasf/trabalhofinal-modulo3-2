@@ -3,6 +3,7 @@ package com.dbccompany.receitasapp.controller;
 import com.dbccompany.receitasapp.dataTransfer.RecipeCreate;
 import com.dbccompany.receitasapp.dataTransfer.RecipeFormed;
 import com.dbccompany.receitasapp.exceptions.ObjectNotFoundException;
+import com.dbccompany.receitasapp.exceptions.UserNotActiveException;
 import com.dbccompany.receitasapp.service.RecipeService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -53,7 +54,7 @@ public class RecipeController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PostMapping("/saveRecipe/{idUser}")
     @Validated
-    public RecipeFormed saveRecipe(@Valid @RequestBody RecipeCreate recipeCreate, @PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
+    public RecipeFormed saveRecipe(@Valid @RequestBody RecipeCreate recipeCreate, @PathVariable("idUser") Long idUser) throws ObjectNotFoundException, UserNotActiveException {
         return recipeService.saveRecipe(recipeCreate, idUser);
     }
 
@@ -64,7 +65,7 @@ public class RecipeController {
     @PutMapping("/updateRecipe/{idRecipe}")
     @Validated
     public RecipeFormed updateRecipe(@PathVariable("idRecipe") Long idRecipe,
-                                         @Valid @RequestBody RecipeCreate updateRecipe) throws ObjectNotFoundException {
+                                         @Valid @RequestBody RecipeCreate updateRecipe) throws ObjectNotFoundException, UserNotActiveException {
         return recipeService.updateRecipe(updateRecipe, idRecipe);
     }
 

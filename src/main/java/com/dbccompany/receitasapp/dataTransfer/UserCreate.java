@@ -22,4 +22,7 @@ public class UserCreate {
     @Email
     @NotBlank(message = "O email deve ser informado.")
     private String email;
+
+    @NotNull
+    private Boolean isActive;
 }

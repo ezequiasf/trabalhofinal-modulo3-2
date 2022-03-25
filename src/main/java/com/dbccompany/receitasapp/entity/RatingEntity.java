@@ -20,11 +20,13 @@ public class RatingEntity {
     private Long idRating;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity userEntity;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
     private RecipeEntity recipeEntity;
 
     @Column(name = "rating")

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -49,5 +50,18 @@ public class RecipeEntity {
 
     @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity userEntity;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "recipeEntity", cascade = CascadeType.ALL)
+    private Set<IngredientEntity> ingredientEntities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private Set<ComentEntity> comentEntities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "recipeEntity", cascade = CascadeType.ALL)
+    private Set<RatingEntity> ratingEntities;
 }

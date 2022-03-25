@@ -28,18 +28,18 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
+    @Column (name = "is_active")
+    private Boolean isActive;
+
     @JsonIgnore
-    @JoinColumn
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity")
     private Set<RatingEntity> ratings;
 
     @JsonIgnore
-    @JoinColumn
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity")
     private Set<ComentEntity> coments;
 
     @JsonIgnore
-    @JoinColumn
-    @OneToMany
+    @OneToMany(mappedBy = "userEntity")
     private Set<RecipeEntity> recipes;
 }
