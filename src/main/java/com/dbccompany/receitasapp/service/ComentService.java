@@ -63,9 +63,11 @@ public class ComentService {
         return objectMapper.convertValue(newComent, ComentFormed.class);
     }
 
-    public void deleteComent(Long idComent) {
+    public void deleteComent(Long idComent) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar comentários.");
-        comentRepository.deleteById(idComent);
+        ComentEntity coment = comentRepository.findById(idComent)
+                .orElseThrow(()-> new ObjectNotFoundException("Coment not registered!"));
+        comentRepository.delete(coment);
     }
 
     private List<ComentFormed> convertList(List<ComentEntity> coments) {

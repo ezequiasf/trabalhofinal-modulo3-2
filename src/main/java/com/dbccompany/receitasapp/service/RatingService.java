@@ -59,9 +59,11 @@ public class RatingService {
         return objectMapper.convertValue(ratingReturn, RatingFormed.class);
     }
 
-    public void deleteRating(Long idRating) {
+    public void deleteRating(Long idRating) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar notas.");
-        ratingRepository.deleteById(idRating);
+        RatingEntity ratingEntity = ratingRepository.findById(idRating)
+                .orElseThrow(()-> new ObjectNotFoundException("Rating not registered!"));
+        ratingRepository.delete(ratingEntity);
         log.info("Nota deletada no repositório.");
     }
 

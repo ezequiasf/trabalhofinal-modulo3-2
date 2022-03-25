@@ -63,7 +63,7 @@ public class IngredientController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @DeleteMapping("/deleteIngredient/{idIngredient}")
-    public void deleteIngredient(@PathVariable("idIngredient") Long idIng)  {
+    public void deleteIngredient(@PathVariable("idIngredient") Long idIng) throws ObjectNotFoundException {
         ingredientService.deleteIngredient(idIng);
     }
 }

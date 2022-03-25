@@ -64,7 +64,7 @@ public class ComentController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @DeleteMapping("/deleteComent/{idComent}")
-    public void deleteComentById(@PathVariable("idComent") Long idComent)  {
+    public void deleteComentById(@PathVariable("idComent") Long idComent) throws ObjectNotFoundException {
         comentService.deleteComent(idComent);
     }
 
