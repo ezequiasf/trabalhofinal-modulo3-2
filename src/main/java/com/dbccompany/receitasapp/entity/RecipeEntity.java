@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity(name = "recipe")
 public class RecipeEntity {
-    //TODO: Implementar atributos da Api externa
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RECIPE_GEN")
     @SequenceGenerator(name = "RECIPE_GEN", sequenceName = "seq_recipe", allocationSize = 1)

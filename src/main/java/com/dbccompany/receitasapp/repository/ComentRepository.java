@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComentRepository extends JpaRepository<ComentEntity, Long> {
-    //TODO: Queries para encontrar comentários das receitas
 }
