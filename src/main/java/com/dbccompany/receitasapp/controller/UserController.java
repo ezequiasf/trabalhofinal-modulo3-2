@@ -69,15 +69,4 @@ public class UserController {
     public void deleteUser(@PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
         serviceUsuario.deleteUser(idUser);
     }
-
-    //Query's
-
-    @ApiOperation(value = "Retorna um usuário pelo seu nome.")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Retornou o usuáro com sucesso do banco."),
-            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
-    public List<UserFormed> findByNameContainingIgnoreCase(@RequestParam("userName") String userName){
-      return serviceUsuario.findByNameContainingIgnoreCase(userName);
-    }
-
 }
