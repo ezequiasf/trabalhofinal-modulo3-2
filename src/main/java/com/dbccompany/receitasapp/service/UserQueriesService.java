@@ -8,7 +8,6 @@ import com.dbccompany.receitasapp.entity.UserEntity;
 import com.dbccompany.receitasapp.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -87,7 +86,7 @@ public class UserQueriesService {
     }
 
     public List<UserFormed> findByNameContainingIgnoreCase(String userName){
-        return userRepository.findByNameContainingIgnoreCase(userName)
+        return userRepository.findByUserNameContainingIgnoreCase(userName)
                 .stream()
                 .map(userEntity -> objectMapper.convertValue(userEntity, UserFormed.class))
                 .collect(Collectors.toList());

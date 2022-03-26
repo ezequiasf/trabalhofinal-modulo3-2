@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query("select u "+
-            "   from user_recipe u "+
-            "   where u.userName = :userName")
-    List<UserEntity> findByNameContainingIgnoreCase(String userName);
+//    @Query("select u "+
+//            "   from user_recipe u "+
+//            "   where u.userName = :userName")
+    List<UserEntity> findByUserNameContainingIgnoreCase(String userName);
 
     @Query("select u from user_recipe u order by u.userName")
     List<UserEntity> listAllUsersOrderByName ();
