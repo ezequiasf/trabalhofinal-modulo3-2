@@ -55,15 +55,15 @@ public class RecipeQueriesService {
 
     public Page<RecipeFormed> orderForPrice(Integer paginaSolicitada, Integer tamanhoDaPagina) {
         Pageable pageable = PageRequest.of(paginaSolicitada, tamanhoDaPagina, Sort.by("price").ascending());
-        Page<RecipeEntity> all = recipeRepository.findAll(pageable);
-        return all.map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
+        return recipeRepository.findAll(pageable)
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
     }
 
 
     public Page<RecipeFormed> orderForTimePrepare(Integer paginaSolicitada, Integer tamanhoDaPagina) {
         Pageable pageable = PageRequest.of(paginaSolicitada, tamanhoDaPagina, Sort.by("prepareTime").ascending());
-        Page<RecipeEntity> all = recipeRepository.findAll(pageable);
-        return all.map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
+        return recipeRepository.findAll(pageable)
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
     }
 
 
