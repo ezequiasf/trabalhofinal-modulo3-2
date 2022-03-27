@@ -26,14 +26,8 @@ public class RecipeQueriesService {
 
 
     public List<RecipeFormed> findByMaxPrice(BigDecimal price) {
-        if (price != null) {
-            return recipeRepository.findByMaxPrice(price)
-                    .stream()
-                    .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class))
-                    .collect(Collectors.toList());
-        }
-        return recipeRepository.findAll().stream()
-                .map(user -> objectMapper.convertValue(user, RecipeFormed.class))
+        return recipeRepository.findByMaxPrice(price).stream()
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class))
                 .collect(Collectors.toList());
     }
 
@@ -47,41 +41,29 @@ public class RecipeQueriesService {
     }
 
     public List<RecipeFormed> findByPrepareTime(Integer prepareTime) {
-        if (prepareTime != null) {
-            return recipeRepository.findByPrepareTime(prepareTime)
-                    .stream()
-                    .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class))
-                    .collect(Collectors.toList());
-        }
-        return recipeRepository.findAll().stream()
-                .map(user -> objectMapper.convertValue(user, RecipeFormed.class))
+        return recipeRepository.findByPrepareTime(prepareTime).stream()
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class))
                 .collect(Collectors.toList());
     }
 
 
     public List<RecipeFormed> findByMaxCalories(BigDecimal calories) {
-        if (calories != null) {
-            return recipeRepository.findByMaxCalories(calories)
-                    .stream()
-                    .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class))
-                    .collect(Collectors.toList());
-        }
-        return recipeRepository.findAll().stream()
-                .map(user -> objectMapper.convertValue(user, RecipeFormed.class))
+        return recipeRepository.findByMaxCalories(calories).stream()
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class))
                 .collect(Collectors.toList());
     }
 
     public Page<RecipeFormed> orderForPrice(Integer paginaSolicitada, Integer tamanhoDaPagina) {
         Pageable pageable = PageRequest.of(paginaSolicitada, tamanhoDaPagina, Sort.by("price").ascending());
-        Page<RecipeEntity> all = recipeRepository.findAll(pageable);
-        return all.map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
+        return recipeRepository.findAll(pageable)
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
     }
 
 
     public Page<RecipeFormed> orderForTimePrepare(Integer paginaSolicitada, Integer tamanhoDaPagina) {
         Pageable pageable = PageRequest.of(paginaSolicitada, tamanhoDaPagina, Sort.by("prepareTime").ascending());
-        Page<RecipeEntity> all = recipeRepository.findAll(pageable);
-        return all.map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
+        return recipeRepository.findAll(pageable)
+                .map(recipeEntity -> objectMapper.convertValue(recipeEntity, RecipeFormed.class));
     }
 
 

@@ -29,7 +29,7 @@ public class RecipeQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findRecipeByPriceMax")
-    public List<RecipeFormed> findByPrecoMax(@RequestParam(required = false) BigDecimal price) {
+    public List<RecipeFormed> findByPrecoMax(@RequestParam BigDecimal price) {
         return recipeQueriesService.findByMaxPrice(price);
     }
 
@@ -39,7 +39,7 @@ public class RecipeQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findRecipeByIngredient")
-    public List<RecipeIngredientDTO> findByIngredient(@RequestParam(required = false) String ingredient) {
+    public List<RecipeIngredientDTO> findByIngredient(@RequestParam String ingredient) {
         return recipeQueriesService.findByIngredient(ingredient);
     }
 
@@ -49,7 +49,7 @@ public class RecipeQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findRecipeByPrepareTime")
-    public List<RecipeFormed> findByPrepareTime(@RequestParam(required = false) Integer prepareTime) {
+    public List<RecipeFormed> findByPrepareTime(@RequestParam Integer prepareTime) {
         return recipeQueriesService.findByPrepareTime(prepareTime);
     }
 
@@ -59,7 +59,7 @@ public class RecipeQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findByMaxCalories")
-    public List<RecipeFormed> findByMaxCalories(@RequestParam(required = false) BigDecimal calories) {
+    public List<RecipeFormed> findByMaxCalories(@RequestParam BigDecimal calories) {
         return recipeQueriesService.findByMaxCalories(calories);
     }
 
