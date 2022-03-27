@@ -19,7 +19,7 @@ public class UserQueriesService {
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
 
-    public List<UserRecipeDTO> findRecipesOfUser (Long userId){
+    public List<UserRecipeDTO> findRecipesOfUser(Long userId) {
         if (userId != null) {
             return userRepository.findById(userId).stream()
                     .map(user -> (UserRecipeDTO) buildDataTransfer(user, new UserRecipeDTO()))
@@ -30,7 +30,7 @@ public class UserQueriesService {
                 .collect(Collectors.toList());
     }
 
-    public List<UserRatingDTO> findRatingsOfUser (Long userId){
+    public List<UserRatingDTO> findRatingsOfUser(Long userId) {
         if (userId != null) {
             return userRepository.findById(userId).stream()
                     .map(user -> (UserRatingDTO) buildDataTransfer(user, new UserRatingDTO()))
@@ -41,7 +41,7 @@ public class UserQueriesService {
                 .collect(Collectors.toList());
     }
 
-    public List<UserComentDTO> findComentsOfUser (Long userId){
+    public List<UserComentDTO> findComentsOfUser(Long userId) {
         if (userId != null) {
             return userRepository.findById(userId).stream()
                     .map(user -> (UserComentDTO) buildDataTransfer(user, new UserComentDTO()))
@@ -52,12 +52,12 @@ public class UserQueriesService {
                 .collect(Collectors.toList());
     }
 
-    private UserUpdate buildDataTransfer (UserEntity user, UserUpdate dataTransfer){
-        if (dataTransfer instanceof UserComentDTO){
+    private UserUpdate buildDataTransfer(UserEntity user, UserUpdate dataTransfer) {
+        if (dataTransfer instanceof UserComentDTO) {
             UserComentDTO userWithComent = objectMapper.convertValue(user, UserComentDTO.class);
             userWithComent.setComents(findComents(user));
             return userWithComent;
-        } else if (dataTransfer instanceof UserRatingDTO){
+        } else if (dataTransfer instanceof UserRatingDTO) {
             UserRatingDTO userWithRating = objectMapper.convertValue(user, UserRatingDTO.class);
             userWithRating.setRatings(findRatings(user));
             return userWithRating;
@@ -67,32 +67,32 @@ public class UserQueriesService {
         return userWithRecipes;
     }
 
-    private List<ComentFormed> findComents (UserEntity userEntity){
+    private List<ComentFormed> findComents(UserEntity userEntity) {
         return userEntity.getComents().stream()
                 .map(coment -> objectMapper.convertValue(coment, ComentFormed.class))
                 .collect(Collectors.toList());
     }
 
-    private List<RatingFormed> findRatings (UserEntity userEntity){
+    private List<RatingFormed> findRatings(UserEntity userEntity) {
         return userEntity.getRatings().stream()
                 .map(rating -> objectMapper.convertValue(rating, RatingFormed.class))
                 .collect(Collectors.toList());
     }
 
-    private List<RecipeFormed> findRecipes (UserEntity userEntity){
+    private List<RecipeFormed> findRecipes(UserEntity userEntity) {
         return userEntity.getRecipes().stream()
                 .map(recipe -> objectMapper.convertValue(recipe, RecipeFormed.class))
                 .collect(Collectors.toList());
     }
 
-    public List<UserFormed> findByNameContainingIgnoreCase(String userName){
+    public List<UserFormed> findByNameContainingIgnoreCase(String userName) {
         return userRepository.findByUserNameContainingIgnoreCase(userName)
                 .stream()
                 .map(userEntity -> objectMapper.convertValue(userEntity, UserFormed.class))
                 .collect(Collectors.toList());
     }
 
-    public List<UserFormed> listAllUsersOrderByName (){
+    public List<UserFormed> listAllUsersOrderByName() {
         return userRepository.listAllUsersOrderByName().stream()
                 .map(userEntity -> objectMapper.convertValue(userEntity, UserFormed.class))
                 .collect(Collectors.toList());

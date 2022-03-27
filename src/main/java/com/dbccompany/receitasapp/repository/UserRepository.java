@@ -13,6 +13,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findByUserNameContainingIgnoreCase(String userName);
 
     @Query("select u from user_recipe u order by u.userName")
-    List<UserEntity> listAllUsersOrderByName ();
+    List<UserEntity> listAllUsersOrderByName();
 
 }

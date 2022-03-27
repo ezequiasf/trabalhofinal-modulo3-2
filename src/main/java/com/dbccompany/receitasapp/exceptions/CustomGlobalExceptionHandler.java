@@ -59,7 +59,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return badRequest(exception);
     }
 
-    private ResponseEntity<Object> badRequest(Exception e){
+    private ResponseEntity<Object> badRequest(Exception e) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", new Date());
         body.put("status", HttpStatus.BAD_REQUEST.value());

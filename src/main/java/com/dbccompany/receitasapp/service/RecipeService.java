@@ -11,12 +11,8 @@ import com.dbccompany.receitasapp.repository.RecipeRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +38,7 @@ public class RecipeService {
         log.info("Chamada de método service:: Salvar receitas.");
         UserFormed userFormed = userService.findUserById(idUser);
         UserEntity userEntity = objectMapper.convertValue(userFormed, UserEntity.class);
-        if (!userEntity.getIsActive()){
+        if (!userEntity.getIsActive()) {
             throw new UserNotActiveException("User inactive!");
         }
         RecipeEntity r = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
@@ -57,7 +53,7 @@ public class RecipeService {
         log.info("Chamada de método service:: Atualizar receitas.");
         RecipeEntity oldRecipe = recipeRepository.findById(idRecipe)
                 .orElseThrow(() -> new ObjectNotFoundException("Recipe not found!"));
-        if (!oldRecipe.getUserEntity().getIsActive()){
+        if (!oldRecipe.getUserEntity().getIsActive()) {
             throw new UserNotActiveException("User inactive!");
         }
         RecipeEntity newRecipe = objectMapper.convertValue(recipeCreate, RecipeEntity.class);
@@ -75,7 +71,7 @@ public class RecipeService {
 
     public void deleteRecipe(Long idRecipe) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar receitas.");
-        RecipeEntity recipeEntity = recipeRepository.findById(idRecipe).orElseThrow(()->
+        RecipeEntity recipeEntity = recipeRepository.findById(idRecipe).orElseThrow(() ->
                 new ObjectNotFoundException("Recipe not found!"));
         recipeRepository.delete(recipeEntity);
     }

@@ -9,12 +9,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -58,7 +56,7 @@ public class RecipeController {
     @PutMapping("/updateRecipe/{idRecipe}")
     @Validated
     public RecipeFormed updateRecipe(@PathVariable("idRecipe") Long idRecipe,
-                                         @Valid @RequestBody RecipeCreate updateRecipe) throws ObjectNotFoundException, UserNotActiveException {
+                                     @Valid @RequestBody RecipeCreate updateRecipe) throws ObjectNotFoundException, UserNotActiveException {
         return recipeService.updateRecipe(updateRecipe, idRecipe);
     }
 
@@ -70,7 +68,6 @@ public class RecipeController {
     public void deleteRecipe(@PathVariable("idRecipe") Long idRecipe) throws ObjectNotFoundException {
         recipeService.deleteRecipe(idRecipe);
     }
-
 
 
 }

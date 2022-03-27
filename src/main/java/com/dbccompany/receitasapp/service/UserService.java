@@ -46,7 +46,7 @@ public class UserService {
     public UserFormed updateUser(UserUpdate userUpdate, Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar usuários.");
         UserEntity oldUser = userRepository.findById(idUser)
-                .orElseThrow(()-> new ObjectNotFoundException("User not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
         UserEntity newUser = objectMapper.convertValue(userUpdate, UserEntity.class);
         log.info("Objeto DTO convertido para tipo Usuario.");
         oldUser.setUserName(newUser.getUserName());
@@ -60,7 +60,7 @@ public class UserService {
     public void deleteUser(Long idUser) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar usuários.");
         UserEntity userEntity = userRepository.findById(idUser)
-                .orElseThrow(()-> new ObjectNotFoundException("User not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
         userEntity.setIsActive(false);
         userRepository.save(userEntity);
         log.info("Usúario desativado.");

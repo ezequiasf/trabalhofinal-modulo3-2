@@ -112,7 +112,7 @@ public class RecipeQueriesService {
             RecipeComentDTO recipewithcoment = objectMapper.convertValue(recipe, RecipeComentDTO.class);
             recipewithcoment.setComents(findComents(recipe));
             return recipewithcoment;
-        }else if (dataTransfer instanceof RecipeIngredientDTO){
+        } else if (dataTransfer instanceof RecipeIngredientDTO) {
             RecipeIngredientDTO recipeWithIngredient = objectMapper.convertValue(recipe, RecipeIngredientDTO.class);
             recipeWithIngredient.setIngredientFormeds(findIngredients(recipe));
             return recipeWithIngredient;
@@ -135,7 +135,7 @@ public class RecipeQueriesService {
                 .collect(Collectors.toList());
     }
 
-    private List<IngredientFormed> findIngredients (RecipeEntity recipeEntity){
+    private List<IngredientFormed> findIngredients(RecipeEntity recipeEntity) {
         return recipeEntity.getIngredientEntities().stream()
                 .map(ing -> objectMapper.convertValue(ing, IngredientFormed.class))
                 .collect(Collectors.toList());

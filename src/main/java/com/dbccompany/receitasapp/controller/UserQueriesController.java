@@ -27,7 +27,7 @@ public class UserQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findComentsOfUser")
-    public List<UserComentDTO> findComentsOfUser (@RequestParam(required = false) Long userId){
+    public List<UserComentDTO> findComentsOfUser(@RequestParam(required = false) Long userId) {
         return userQueriesService.findComentsOfUser(userId);
     }
 
@@ -36,7 +36,7 @@ public class UserQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findRatingsOfUser")
-    public List<UserRatingDTO> findRatingsOfUser (@RequestParam(required = false) Long userId){
+    public List<UserRatingDTO> findRatingsOfUser(@RequestParam(required = false) Long userId) {
         return userQueriesService.findRatingsOfUser(userId);
     }
 
@@ -45,7 +45,7 @@ public class UserQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findRecipesOfUser")
-    public List<UserRecipeDTO> findRecipesOfUser (@RequestParam(required = false) Long userId){
+    public List<UserRecipeDTO> findRecipesOfUser(@RequestParam(required = false) Long userId) {
         return userQueriesService.findRecipesOfUser(userId);
     }
 
@@ -54,7 +54,7 @@ public class UserQueriesController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/findUserByName")
-    public List<UserFormed> findByName (@RequestParam String userName){
+    public List<UserFormed> findByName(@RequestParam String userName) {
         return userQueriesService.findByNameContainingIgnoreCase(userName);
     }
 
@@ -62,8 +62,8 @@ public class UserQueriesController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Lista de usuários retornada com sucesso."),
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
-    @GetMapping ("/findAllUsersOrderByName")
-    public List<UserFormed> findAllUsersOrderByName (){
+    @GetMapping("/findAllUsersOrderByName")
+    public List<UserFormed> findAllUsersOrderByName() {
         return userQueriesService.listAllUsersOrderByName();
     }
 }

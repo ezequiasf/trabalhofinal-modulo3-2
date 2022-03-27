@@ -66,7 +66,7 @@ public class ComentService {
     public void deleteComent(Long idComent) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar comentários.");
         ComentEntity coment = comentRepository.findById(idComent)
-                .orElseThrow(()-> new ObjectNotFoundException("Coment not registered!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Coment not registered!"));
         comentRepository.delete(coment);
     }
 

@@ -62,7 +62,7 @@ public class RatingService {
     public void deleteRating(Long idRating) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar notas.");
         RatingEntity ratingEntity = ratingRepository.findById(idRating)
-                .orElseThrow(()-> new ObjectNotFoundException("Rating not registered!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Rating not registered!"));
         ratingRepository.delete(ratingEntity);
         log.info("Nota deletada no repositório.");
     }

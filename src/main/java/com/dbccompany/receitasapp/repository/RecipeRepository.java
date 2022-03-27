@@ -11,19 +11,19 @@ import java.util.List;
 @Repository
 public interface RecipeRepository extends JpaRepository<RecipeEntity, Long> {
 
-    @Query(value ="select * "+
-        "   from recipe r "+
-        "   where r.price <= :price", nativeQuery = true)
+    @Query(value = "select * " +
+            "   from recipe r " +
+            "   where r.price <= :price", nativeQuery = true)
     List<RecipeEntity> findByMaxPrice(BigDecimal price);
 
-    @Query("select r "+
-            "   from recipe r "+
+    @Query("select r " +
+            "   from recipe r " +
             "   where r.prepareTime <= :prepareTime")
-         List<RecipeEntity>  findByPrepareTime(Integer prepareTime);
+    List<RecipeEntity> findByPrepareTime(Integer prepareTime);
 
-    @Query("select r "+
-        "   from recipe r "+
-        "   where r.calories <= :calories")
-    List<RecipeEntity>findByMaxCalories (BigDecimal calories);
+    @Query("select r " +
+            "   from recipe r " +
+            "   where r.calories <= :calories")
+    List<RecipeEntity> findByMaxCalories(BigDecimal calories);
 
 }

@@ -31,7 +31,7 @@ public class IngredientService {
     public IngredientFormed findIngredientById(Long idIngredient) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Encontrar por id.");
         IngredientEntity i = ingredientRepository.findById(idIngredient)
-                .orElseThrow(()->new ObjectNotFoundException("Ingredient not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Ingredient not found!"));
         log.info("Feita verificação do ID.");
         return objectMapper.convertValue(i, IngredientFormed.class);
     }
@@ -50,7 +50,7 @@ public class IngredientService {
     public IngredientFormed updateIngredient(IngredientCreate ingredientCreate, Long idIngredient) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Atualizar ingredientes.");
         IngredientEntity oldIngredient = ingredientRepository.findById(idIngredient)
-                .orElseThrow(()-> new ObjectNotFoundException("Ingredient Not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Ingredient Not found!"));
         IngredientEntity newIngredient = objectMapper.convertValue(ingredientCreate, IngredientEntity.class);
         log.info("Objeto DTO convertido para tipo Ingrediente.");
         oldIngredient.setIngredient(newIngredient.getIngredient());
@@ -62,7 +62,7 @@ public class IngredientService {
     public void deleteIngredient(Long idIngredient) throws ObjectNotFoundException {
         log.info("Chamada de método service:: Deletar ingredientes.");
         IngredientEntity ingredient = ingredientRepository.findById(idIngredient)
-                .orElseThrow(()-> new ObjectNotFoundException("Ingredient not found!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Ingredient not found!"));
         ingredientRepository.delete(ingredient);
         log.info("Ingrediente deletado do repositório.");
     }

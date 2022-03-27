@@ -36,7 +36,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @GetMapping("/{idUser}")
-    public UserFormed encontrarUsuarioPorId(@PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
+    public UserFormed findUserById(@PathVariable("idUser") Long idUser) throws ObjectNotFoundException {
         return serviceUsuario.findUserById(idUser);
     }
 
@@ -46,7 +46,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),})
     @PostMapping("/saveUser")
     @Validated
-    public UserFormed salvarUsuario(@Valid @RequestBody UserCreate userCreate) {
+    public UserFormed saveUser(@Valid @RequestBody UserCreate userCreate) {
         return serviceUsuario.saveUser(userCreate);
     }
 
@@ -57,7 +57,7 @@ public class UserController {
     @PutMapping("/updateUser/{idUser}")
     @Validated
     public UserFormed updateUser(@PathVariable("idUser") Long idUser,
-                                       @Valid @RequestBody UserUpdate userUpdate) throws ObjectNotFoundException {
+                                 @Valid @RequestBody UserUpdate userUpdate) throws ObjectNotFoundException {
         return serviceUsuario.updateUser(userUpdate, idUser);
     }
 
