@@ -19,7 +19,7 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Long> {
     @Query("select r "+
             "   from recipe r "+
             "   where r.prepareTime <= :prepareTime")
-         List<RecipeEntity>  findByPrepareTime(Integer prepareTime);
+    List<RecipeEntity>  findByPrepareTime(Integer prepareTime);
 
     @Query("select r "+
         "   from recipe r "+
